@@ -1,0 +1,398 @@
+      
+ <div class="wrapper">
+
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="#"> <img src='../../assets/todoicon.png' style="width:8%;margin-right: 2%"/><h5 style="font-family: cursive;display: inline;">ExpenseSplitz</h5></a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          
+        </ul>
+
+       
+       
+      <button  class="btn btn-warning headerbtn" (click)="newList()">Create Group</button>
+        
+      <button type="button" (click)="showSections()" class="btn btn-primary headerbtn">
+          Friends <span *ngIf="loading" class="badge badge-light">{{this.currentUserDetails.friendReq.length}}</span>
+        </button>
+    <button  (click)="logout()" type="button" class="btn btn-danger headerbtn">Logout</button>
+
+    
+      </div>
+    </nav>
+
+   
+    
+
+
+    <div class="flex-container">    
+
+
+
+        <div id='searchCol' >
+
+            <div  class="container" *ngIf="loading" style="height: 100%;padding: 3px;">
+  
+            <div class="row" style="height: 100%;overflow: auto;">
+            <div class="container" >
+
+                <h5 style="color:white;font-style: italic;">{{currentUserDetails.firstName + " "+currentUserDetails.lastName}}<img src="../../assets/greendot.png" style="width: 13px;
+                  margin-top: -5px;
+                  margin-left: 4px;"/></h5>
+                  <hr/>
+                <h5 style="color:white;font-style: italic;">Users </h5>
+              <input class="form-control" placeholder="Search Users" type="text" [(ngModel)]="searchName" />
+                    
+                    
+
+                <ng-container *ngIf="( allUsers | filter : searchName ) as result">
+                    <div *ngFor="let item of result">
+
+
+                        <div class="container friendsdiv"  *ngIf="userId!=item.userId">
+
+                            <div class="form-inline" style="padding: 5px 0px">
+                                <p style="margin-left:5px;margin-bottom: 0px">{{item.firstName + " "+item.lastName}}</p>
+                                <button *ngIf='item.status=="new"' class="btn btn-primary btn-sm" (click)="sendRequest(item)" style="margin-left: 10px">Send Request</button>
+                                <p  *ngIf='item.status=="sent"' style="color: green;margin-left: 20px;margin-bottom: 0px;font-style: italic;">Request Sent</p>
+                                <p  *ngIf='item.status=="done"' style="color: green;margin-left: 20px;margin-bottom: 0px;font-style: italic;">Friends</p>
+                                <p  *ngIf='item.status=="received"' style="color: green;margin-left: 20px;margin-bottom: 0px;font-style: italic;">Request Received</p>
+                            </div>
+                        </div>
+
+                      
+
+    
+
+                    
+                    </div>
+
+                    <h5  *ngIf="result.length === 0"style="color:white;font-style: italic;">No Users Found</h5>
+                  </ng-container>
+                
+            </div>
+  
+            </div>
+        </div>
+        
+  
+      </div>
+      
+   
+    <div id="left_column">
+
+  <div class="containerDiv" *ngIf="loading">
+
+    <div class="col-md-4" *ngFor="let each of allLists;">
+
+   
+      <div class="card" id=card_{{each.expenseId}}>
+
+          <div class="card-header">
+
+              <div class="d-flex align-items-center">
+                  <h3 style="margin: auto;">{{each.expenseName}}</h3>
+                 
+                </div>
+
+                <div>
+                    <button type="button" class="btn btn-success btn-xs" (click)="newExpense(each.expenseId)">Add Expense</button>
+                    <button type="button" class="btn btn-danger btn-xs" (click)="settleAmount(each.expenseId)">Settle Up</button>
+                    <button type="button" class="btn btn-info btn-xs" (click)="viewHistory(each.expenseId)">View History</button>
+                  </div>
+                
+            </div>
+
+          <div class="card-body"  >
+             <div class="card-text">
+
+                    <div class="card bg-info text-white" *ngIf="each.expense.length!=0">
+                        <div class="card-body text-white" style="padding: 0.65rem;">
+                            <div id="{{each.expenseId}}" style="text-align: center;" class="cardData" [innerHTML]="addhtml(each.expense,each.expenseId)"></div>
+                        </div>
+                        </div>
+
+
+                        <div class="card bg-info text-white" *ngIf="each.expense.length==0">
+                            <div class="card-body text-white" style="padding: 0.65rem;">
+                                <div style="text-align: center;" class="cardData"><p>No Expenses added yet.</p></div>
+                            </div>
+                            </div>
+
+                        
+                            <div class="container border-secondary " style="margin-top: 10px;border:1px solid;border-radius: 2px; " *ngIf="each.expense.length!=0">
+                              
+                                <div class="card bg-light text-white" *ngFor="let exp of each.expense" style="margin-bottom: 4px; margin-top: 4px;" >
+                                    <div class="card-body text-dark" style="padding: 0.45rem;" *ngIf="exp.settledTo==''" >
+                                    <h6>  {{exp.expenseItemDesc}}
+                                        <div class="btn-group" role="group" style="float: right;">
+
+                                            <i class="fas fa-edit" style="cursor:pointer;color:#007bff;margin-right: 10px;" (click)="editExpense(each.expenseId,exp);"></i>
+                                            <i class="fas fa-trash" (click)="deleteExpense(each.expenseId,exp)"  style="cursor:pointer;color:#dc3545;margin-right: 10px;"></i>
+                                           
+                                        
+                                        </div>
+
+                                    </h6>
+                                    <p style="margin: 0px;padding: 0px;margin-left: 10px;"> - <b>{{userIdMap[exp.paidBy]}}</b> spent <b>{{each.currency}}{{exp.amount}}</b></p>
+                                    <p style="margin: 0px;padding: 0px;margin-left: 10px;"> - Split between <span *ngFor="let mem of exp.paidTo;let i = index"><b *ngIf="exp.paidTo.length-1!=i">{{userIdMap[mem]}}, </b> <b *ngIf="exp.paidTo.length-1==i">{{userIdMap[mem]}}</b></span></p>
+                                    
+                                    </div>
+
+
+                                    <div class="card-body text-dark" style="padding: 0.45rem;" *ngIf="exp.settledTo!=''" >
+                                      <p style="margin: 0px;padding: 0px;margin-left: 10px;"> <b>{{userIdMap[exp.paidBy]}}</b> paid <b>{{each.currency}}{{exp.amount}}</b> to <b>{{userIdMap[exp.settledTo]}}</b></p>
+                                     
+                                      </div>
+
+
+
+
+                                    </div>
+                              
+                              
+                          </div>
+                           
+
+               
+
+           
+                          <div class="card bg-light text-black" style="margin-top: 10px;" >
+                              <div class="card-body text-black" style="padding: 0.65rem;">
+              <h6 *ngIf="each.collabrators && each.collabrators.length!=0" style="margin: 0;">Members:</h6>
+                <div *ngFor="let collab of each.collabrators" style="display: inline;margin: 5px;">
+                  
+                    <div *ngFor="let user of allUsers"  style="display: inline;">
+                     <p class="badge badge-primary" style="margin: 0;display: inline;" *ngIf="collab==user.userId"> {{user.firstName +" " + user.lastName}}</p>
+                                 
+                     </div>
+                     </div>
+                     </div>
+                     </div>
+
+
+
+                    </div>
+             
+        
+        </div>
+     
+          
+    </div>
+
+    </div>
+
+
+   
+  </div>
+
+</div>
+
+
+  <div id="right_column">
+
+      <div  class="container" *ngIf="loading" style="height: 100%;padding: 3px;">
+
+      <div class="row" style="height: 50%;overflow: auto;">
+      <div class="container" >
+          <h5 style="color:white;font-style: italic;">Friends</h5>
+          <hr />
+
+          <h5  *ngIf="currentUserDetails.friendList.length==0" style="color:white;font-style: italic;">No Friends added.</h5>
+         
+          <div *ngFor="let each of currentUserDetails.friendList" >
+            <div class="container friendsdiv" >
+
+                <div class="form-inline" style="padding: 5px 0px">
+                    <p style="margin-left:5px;margin-bottom: 0px">  {{each.fromName}} </p>
+                    </div>
+            </div>
+
+        </div>
+        
+      </div>
+
+      </div>
+
+ 
+      <div class="row" style="height: 50%;overflow: auto"> 
+
+     <div class="container">
+        <h5 style="color:white;font-style: italic;" >Friend Requests</h5>
+      <hr/>
+        
+        <h5  *ngIf="currentUserDetails.friendReq.length==0" style="color:white;font-style: italic;">No Friends Requests.</h5>
+
+
+    
+        <div *ngFor="let each of currentUserDetails.friendReq" >
+            <div class="container friendsdiv" >
+
+                <div class="form-inline" style="padding: 5px 0px">
+                    <p style="margin-left:5px;margin-bottom: 0px">  {{each.fromName}} </p>
+                    <button class="btn btn-danger btn-sm" (click)="rejectRequest(each.fromUserId)" style="margin-left: 10px"><i class="fas fa-times" style="width:15px;"></i></button>
+                    <button class="btn btn-success btn-sm" (click)="acceptRequest(each.fromUserId)" style="margin-left: 10px"><i class="fas fa-check" style="width:15px;"></i></button>
+                </div>
+            </div>
+
+        </div>
+      
+    </div>
+
+ 
+
+  </div>
+
+  </div>
+  
+
+</div>
+
+
+     
+    </div>
+  
+
+  
+ 
+
+  </div>
+
+
+    <ng-template #modalContent let-close="close">
+        <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Create Group</h5>
+                  <button type="button" (click)="closeModal()" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                   </div>
+      
+                   <div class="modal-body">
+                     <div>
+                     <input class="form-control" [(ngModel)]="newListName" placeholder="Enter Group Name">
+                    </div>
+                    <div style="margin-top: 20px;">
+                     <ng-selectize [config]="config" [options] = "collabData" [(ngModel)]="collabVal" placeholder="Select Collabrators/Friends" ></ng-selectize>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+
+                        <select class="form-control" [(ngModel)]="currency">
+                            <option value="₹">INR</option>
+                            <option value="$">USR</option>
+                            <option value="€">EUR</option>
+                            </select>
+
+                            </div>
+                   </div>
+                   <div class="modal-footer">
+                      <button type="button" (click)="saveNew()" class="btn btn-primary">Create</button>
+                   </div>
+        </div>
+      </ng-template>
+
+      <ng-template #modalContent2 let-close="close">
+          <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add/Edit Expense</h5>
+                    <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                     </div>
+        
+                     <div class="modal-body">
+                        <div>
+                            <input class="form-control" id="newExpDesc" [(ngModel)]="newExpDesc" placeholder="Enter Expense Description">
+                            <span *ngIf="newExpDesc.invalid && (newExpDesc.dirty || newExpDesc.touched)"  class="error text-danger">Some Errors related to something</span>
+                           </div>
+                           <div style="margin-top: 15px;">
+                              <input class="form-control" [(ngModel)]="newExpAmt" placeholder="Enter Expense Amount">
+                             </div>
+
+                             <div  style="margin-top: 15px;">
+                                <ng-selectize [config]="config1" [options] = "collabData" [(ngModel)]="collabVal1" placeholder="Paid By" ></ng-selectize>
+                                
+                               </div>
+
+                           <div style="margin-top: 15px;">
+                            <ng-selectize [config]="config" [options] = "collabData" [(ngModel)]="collabVal" placeholder="Select Members" ></ng-selectize>
+                           </div> 
+                    
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" *ngIf="expenseModalStatus=='new'" (click)="saveNewExpense(this.currentExpense)" class="btn btn-primary">Save</button>
+                        <button type="button" *ngIf="expenseModalStatus=='edit'" (click)="saveEditedExpense(this.currentExpense)" class="btn btn-primary">Save</button>
+                     </div>
+          </div>
+        </ng-template>
+
+
+        <ng-template #modalContent1 let-close="close">
+            <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title">Settle Amount</h5>
+                      <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                       </div>
+          
+                       <div class="modal-body">
+                          <div>
+                              <ng-selectize [config]="config1" [options] = "collabData1" [(ngModel)]="collabVal1" placeholder="Paid From" ></ng-selectize>
+                             </div>
+
+                             <div  style="margin-top: 15px;" *ngIf="this.collabVal1!=null && this.collabVal1!=''" >
+                                <select id='settlePaidTo' class='form-control' onchange="$('#settleAmt').val($('#settlePaidTo option:selected')[0].title);">
+                                    <option value="" disabled>Pay to</option>
+                                    <option *ngFor="let s of this.settleMap[this.currentExpense][this.collabVal1]" title={{s.amount}} value={{s.paidTo}}> {{this.userIdMap[s.paidTo]}} </option>
+                                  </select>  
+
+                            
+                            </div>
+
+                            
+                            <div  style="margin-top: 15px;" >
+                               
+
+                                  <input class="form-control" id='settleAmt' disabled  placeholder="Amount">
+                            
+                            </div>
+
+                       </div>
+                       <div class="modal-footer">
+                          <button type="button" (click)="saveSettledExpense(this.currentExpense)" class="btn btn-primary">Save</button>
+                       </div>
+            </div>
+          </ng-template>
+
+
+
+          <ng-template #modalContent3 let-close="close">
+            <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title">History</h5>
+                      <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                       </div>
+          
+                       <div class="modal-body">
+
+                          <div class="card bg-light text-dark" >
+                              <div class="card-body text-dark" style="padding: 0.65rem;">
+                                  <div class="cardData" [innerHTML]="historyModal(this.currentExpense)"></div>
+                              </div>
+                              </div>
+
+                
+
+                       </div>
+                       <div class="modal-footer">
+                          <button type="button" (click)="closeModal()" class="btn btn-secondary">Close</button>
+                       </div>
+            </div>
+          </ng-template>

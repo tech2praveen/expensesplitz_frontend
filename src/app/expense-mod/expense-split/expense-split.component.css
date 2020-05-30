@@ -1,0 +1,158 @@
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 99999;
+    top: 10;
+    right: 0;
+   background-color:#eee;
+    overflow-x: hidden;
+    transition: 0.3s;
+    
+  }
+
+  .headerbtn{
+
+    margin-right: 5px;
+  }
+
+  .friendsdiv{
+    background: #f7f7f7;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 0; 
+  
+  }
+
+  .friendbtn{
+      
+    float: right;
+    margin-left: 5px;
+
+  }
+
+  .box{
+     
+    padding:30px 30px;
+    position: absolute;
+    width: 100%;
+    padding-top: 80px;
+ 
+  
+}
+
+.fas-edit{
+  color:#007bff;margin-right: 10px;
+}
+
+.box-part{
+    background:#FFF;
+    border-radius:0;
+    padding:30px 10px;
+    margin:20px 0px;
+}
+.text{
+    margin:20px 0px;
+}
+
+.card-body{
+  padding: 0.95rem;
+}
+
+.card{
+  width: 100%
+}
+
+.containerDiv {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  padding-top: 3%;
+  display : flex;
+ flex-flow: row wrap;
+ padding-bottom: 10%;
+ 
+ justify-content: space-evenly;
+}
+
+.containerDiv > div {
+ 
+  background: #ececec;
+  margin:5px;
+  min-width:350px;
+
+  /* flex: 1; */
+}
+@media ( min-width: 768px ) and ( max-width: 992px ) {
+.containerDiv {
+  justify-content: flex-start;
+
+  
+}
+}
+
+.flex-container {
+  display: flex;
+  background-color: #343a40;
+  height: 100%;
+  flex-grow: 1;
+  padding-top:72px; 
+}
+
+#right_column{
+
+  display:none;
+  background-color: #343a40;
+  width: 25%;
+   margin: 0px 5px 0px 5px;
+  
+}
+
+#searchCol
+{
+  display:none;
+  background-color: #343a40;
+  width: 25%;
+   margin: 0px 5px 0px 5px;
+}
+
+#left_column{
+  background-color: #eee;
+  width: 100%;
+
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+ 
+
+
+hr{
+  margin-top: 0rem;
+              margin-bottom: 0.5rem;
+              border: 0;
+              border-top: 1px solid white;
+}
+
+.btn-group-xs > .btn, .btn-xs {
+    margin: 5%;
+    padding: 0.65rem;
+    font-size: .775rem;
+    line-height: .5;
+    border-radius: .2rem;
+  }
+
+  .history{
+    margin: 5px;
+    padding: 0.35rem;
+
+  }
+  
+ 
+  
+ 

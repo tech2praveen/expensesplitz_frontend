@@ -1,0 +1,44 @@
+<div class="container" >
+  <div class="row">
+    <div class="col-md-4">
+    
+    </div>
+ 
+    
+
+    <div style="padding:2%" class="col-md-4 box">
+
+        <div style="text-align: center">
+            <h5>ExpenseSplitz</h5>
+          
+        <div style="text-align: center">
+          <img src="../../../assets/todoicon.png" style="width: 25%;">
+        </div>
+  
+        <div style="padding:2%;margin-top: 5%;">
+          <label for="email">Email address</label>
+          <input type="email" [(ngModel)]="email" class="form-control" id="email" placeholder="Enter email">
+        </div>
+  
+        <div style="padding:2%">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" [(ngModel)]="password" placeholder="Password">
+        </div>
+        <br>
+        <div style="text-align:center">
+          <button (click)="login()" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <br>
+        <br>
+        <div>
+          <div (click)="forgotPassword()" style="cursor: pointer" class="badge badge-warning">Forgot Password?</div><span style ="margin-left: 50%"  class="badge badge-primary"><a style='color:white;' href="/signup">Signup</a></span>
+        </div>
+  
+  
+      </div>
+  </div>
+  <div class="col-md-4">
+    
+    </div>
+</div>
+
