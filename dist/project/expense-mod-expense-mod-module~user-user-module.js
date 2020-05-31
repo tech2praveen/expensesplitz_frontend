@@ -70341,8 +70341,8 @@ var UserServiceService = /** @class */ (function () {
         var _this = this;
         this._http = _http;
         this.authToken = ng2_cookies_ng2_cookies__WEBPACK_IMPORTED_MODULE_2__["Cookie"].get('authToken');
-        this.url = "http://localhost:3000/api/v1/users";
-        // private url = "http://api.to-doApp.tech2praveen.info/api/v1/users"
+        //private url = "http://localhost:3000/api/v1/users";
+        this.url = "http://api.expensesplitz.tech2praveen.info/api/v1/users";
         this.signUpFunction = function (signupDetails) {
             return _this._http.post(_this.url + "/signup", signupDetails);
         }; //  end of signup function
