@@ -1641,7 +1641,7 @@ var SocketServiceService = /** @class */ (function () {
     function SocketServiceService(http) {
         var _this = this;
         this.http = http;
-        this.url = "http://localhost:3000";
+        this.url = "http://localhost:3030";
         this.sendUserId = function () {
             return rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"].create(function (observer) {
                 _this.socket.on('send-userId', function (data) {

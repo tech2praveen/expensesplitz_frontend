@@ -16,7 +16,7 @@ import { HttpErrorResponse, HttpParams } from "@angular/common/http";
 })
 export class SocketServiceService {
 
-  public url = "http://localhost:3000"
+  public url = "http://localhost:3030"
  // private url = "http://api.to-doApp.tech2praveen.info"
 
   public socket;
