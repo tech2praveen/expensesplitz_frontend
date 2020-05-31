@@ -7,4 +7,4 @@ All the changes will be notified in real time such as a new friend request,addit
 ### URLs:
 * Hosted URL: http://expensesplitz.tech2praveen.info
 * Backend URL: http://api.expensesplitz.tech2praveen.info
-* Apidocs:	http://apidoc.expensesplitz.tech2praveen.info
+* Apidocs:	http://api.expensesplitz.tech2praveen.info/apidoc

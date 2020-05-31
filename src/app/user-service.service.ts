@@ -19,8 +19,9 @@ export class UserServiceService {
    private authToken = Cookie.get('authToken');
 
 
-    private url = "http://localhost:3000/api/v1/users";
-   // private url = "http://api.to-doApp.tech2praveen.info/api/v1/users"
+    //private url = "http://localhost:3000/api/v1/users";
+    private url = "http://api.expensesplitz.tech2praveen.info/api/v1/users"
+   
 
   public signUpFunction = (signupDetails):any =>{
 

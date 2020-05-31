@@ -14,8 +14,8 @@ export class ListServiceService {
   
   private authToken = Cookie.get('authToken');
 
-   public url = "http://localhost:3000/api/v1/expense";
-  //private url = "http://api.to-doApp.tech2praveen.info/api/v1/list"
+   //public url = "http://localhost:3000/api/v1/expense";
+  private url = "http://api.expensesplitz.tech2praveen.info/api/v1/expense"
 
   public getAllListOfUser = (userId):any =>{
 
